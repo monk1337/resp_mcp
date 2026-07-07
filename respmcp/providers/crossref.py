@@ -1,7 +1,7 @@
 """Crossref provider — free metadata API (no key). Good for ACM/publisher DOIs.
 
-This is the practical SERP-free stand-in for the repo's ACM scraper, which is
-now blocked by Cloudflare. Filter by publisher/container to target ACM et al.
+This is the practical route for ACM Digital Library metadata. Filter by
+publisher/container to target ACM et al.
 Docs: https://api.crossref.org/swagger-ui/index.html
 """
 from __future__ import annotations
@@ -88,5 +88,5 @@ class CrossrefProvider:
         return papers[:max_results]
 
     def acm(self, keyword: str, max_results: int = 25, min_year: Optional[int] = None) -> list[Paper]:
-        """ACM Digital Library papers via Crossref (SERP-free, Cloudflare-free)."""
+        """ACM Digital Library papers via Crossref."""
         return self.search(keyword, max_results, member=ACM_MEMBER, min_year=min_year)

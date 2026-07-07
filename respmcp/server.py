@@ -1,14 +1,14 @@
-"""resp-mcp MCP server — exposes SERP-free scholarly search to any MCP client.
+"""resp-mcp MCP server — scholarly paper search tools for any MCP client.
 
 Run:
     python -m respmcp.server            # stdio (for Claude Desktop / Code)
     RESP_MCP_TRANSPORT=http python -m respmcp.server   # streamable HTTP
 
-Every tool returns a list of paper dicts (normalized schema). No SerpApi key
-is ever required. Optional env:
-    SEMANTIC_SCHOLAR_API_KEY   raise S2 rate limits
+Every tool returns a list of paper dicts (normalized schema). No API key is
+required to get started. Optional env:
+    SEMANTIC_SCHOLAR_API_KEY   raise Semantic Scholar rate limits
     RESP_CONTACT_EMAIL         polite-pool contact for OpenAlex/Crossref
-    RESP_CACHE_DIR             where the ACL dump is cached
+    RESP_CACHE_DIR             where the ACL Anthology index is cached
 """
 from __future__ import annotations
 
@@ -82,14 +82,14 @@ def search_acl(keyword: str, max_results: int = 25) -> list[dict]:
 
 @mcp.tool()
 def search_acm(keyword: str, max_results: int = 25, min_year: Optional[int] = None) -> list[dict]:
-    """Search ACM Digital Library papers via Crossref (SERP-free; avoids the
-    Cloudflare block on dl.acm.org). Returns DOIs and publisher links."""
+    """Search ACM Digital Library papers via Crossref. Returns DOIs and
+    publisher links."""
     return _out(_resp.acm(keyword, max_results, min_year=min_year))
 
 
 @mcp.tool()
 def search_connected_papers(keyword: str, max_results: int = 25) -> list[dict]:
-    """Search Connected Papers' corpus via its reverse-engineered REST API."""
+    """Search the Connected Papers corpus by keyword."""
     return _out(_resp.cp.search(keyword, max_results))
 
 
@@ -129,15 +129,14 @@ def search_eccv(keyword: str, year: Optional[int] = None, max_results: int = 50)
 @mcp.tool()
 def search_aaai(keyword: str, year: Optional[int] = None, max_results: int = 50) -> list[dict]:
     """Search AAAI proceedings via DBLP venue+year filter, with an OpenAlex
-    venue fallback (SERP-free; AAAI has no scrapeable open-proceedings page
-    reachable here)."""
+    venue fallback."""
     return _out(_resp.aaai(keyword, year=year, max_results=max_results))
 
 
 @mcp.tool()
 def list_conferences() -> list[dict]:
-    """List the conferences the unified search_conference tool knows how to route,
-    with the SERP-free method each uses."""
+    """List the conferences the unified search_conference tool knows how to
+    route, with the source each uses."""
     return _resp.list_conferences()
 
 
@@ -145,7 +144,7 @@ def list_conferences() -> list[dict]:
 def search_conference(
     conference: str, keyword: str, year: Optional[int] = None, max_results: int = 50
 ) -> list[dict]:
-    """Search any known conference SERP-free, auto-routing to the right source.
+    """Search any known conference, auto-routing to the right source.
 
     Supported (see list_conferences): CVPR, ICCV, WACV, ECCV, ICML, AISTATS, UAI,
     COLT, ACML, CoLLAs, ACL, EMNLP, EACL, NAACL, CoNLL, COLING, LREC, TACL,
@@ -162,7 +161,7 @@ def search_conference(
 @mcp.tool()
 def get_citations(paper_id: str, max_results: int = 50) -> list[dict]:
     """Papers that cite the given paper. paper_id may be a Semantic Scholar id,
-    'arXiv:1706.03762', 'DOI:10.xxxx', or 'CorpusId:...'. Replaces SerpApi cited_by."""
+    'arXiv:1706.03762', 'DOI:10.xxxx', or 'CorpusId:...'."""
     return _out(_resp.citations(paper_id, max_results))
 
 
@@ -174,9 +173,8 @@ def get_references(paper_id: str, max_results: int = 50) -> list[dict]:
 
 @mcp.tool()
 def get_related_papers(query_or_id: str, max_results: int = 40) -> list[dict]:
-    """Related papers for a title/query or paper id, using Connected Papers'
-    graph (reverse-engineered) with a Semantic Scholar recommendations fallback.
-    Replaces both the Selenium and SerpApi related-pages flows."""
+    """Related papers for a title/query or paper id, using the Connected Papers
+    graph with a Semantic Scholar recommendations fallback."""
     return _out(_resp.related_papers(query_or_id, max_results))
 
 

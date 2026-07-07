@@ -1,6 +1,6 @@
 """Shared HTTP session, rate limiting, retry, and the normalized Paper model.
 
-Every provider returns lists of ``Paper``. No SerpApi anywhere in this package.
+Every provider returns lists of ``Paper``.
 """
 from __future__ import annotations
 

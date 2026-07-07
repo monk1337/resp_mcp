@@ -1,4 +1,4 @@
-"""resp-mcp — SERP-free scholarly search, exposed as a library and MCP server."""
+"""resp-mcp — scholarly paper search, as a library and MCP server."""
 from .core import Resp
 from .providers import Paper
 

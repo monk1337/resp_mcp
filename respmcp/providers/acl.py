@@ -1,9 +1,9 @@
-"""ACL Anthology provider — no SerpApi, no search API needed.
+"""ACL Anthology provider — searches a cached copy of the anthology.
 
 The Anthology has no keyword-search endpoint, but it publishes a complete
 BibTeX dump (anthology.bib.gz). We download it once, cache it on disk, parse it
 with a fast regex, and search titles locally. This yields real aclanthology.org
-links and complete coverage — a faithful SERP-free replacement for the repo's
+links and complete coverage of the anthology for the repo's
 ``site:aclanthology.org`` queries.
 
 First call downloads ~13 MB (cached under RESP_CACHE_DIR or ~/.cache/resp-mcp);

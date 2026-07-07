@@ -2,7 +2,7 @@
 
 NeurIPS, IJCAI, CVF (CVPR/ICCV/WACV), and PMLR publish full per-year/per-volume
 listings we can fetch and keyword-filter locally. All verified working with a
-browser User-Agent. No SerpApi.
+browser User-Agent.
 
 Because these are full-listing pages, ``search`` fetches the listing for the
 requested year/volume then filters titles by the keyword tokens.

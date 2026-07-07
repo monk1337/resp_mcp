@@ -1,7 +1,7 @@
 """Semantic Scholar provider — official Graph API (free; optional API key).
 
 Replaces both the repo's broken internal ``/api/1/search`` scrape and the
-SerpApi ``cited_by`` flow. Endpoints used:
+citation lookups. Endpoints used:
   - /graph/v1/paper/search        -> keyword search
   - /graph/v1/paper/{id}          -> single paper
   - /graph/v1/paper/{id}/citations

@@ -1,7 +1,7 @@
-"""Resp — the SERP-free facade.
+"""Resp — the unified search facade.
 
 A drop-in-spirit replacement for the original ``resp.Resp`` class, but every
-method is powered by an official or reverse-engineered API instead of SerpApi.
+method is powered by a public scholarly API or proceedings source.
 Providers are lazily instantiated so importing this is cheap.
 """
 from __future__ import annotations
@@ -28,7 +28,7 @@ from .providers.conferences import list_conferences as _list_conferences, resolv
 
 
 class Resp:
-    """SERP-free scholarly search across many sources."""
+    """Scholarly paper search across many sources."""
 
     def __init__(self, semantic_scholar_api_key: Optional[str] = None):
         self._s2_key = semantic_scholar_api_key
@@ -108,7 +108,7 @@ class Resp:
         return self.acl_p.search(keyword, max_results=max_results)
 
     def acm(self, keyword: str, max_results: int = 25, min_year: Optional[int] = None) -> list[Paper]:
-        # SERP-free ACM via Crossref (repo's direct scrape is Cloudflare-blocked).
+        # ACM via Crossref.
         return self.crossref.acm(keyword, max_results=max_results, min_year=min_year)
 
     def nips(self, keyword: str, year: int, max_results: int = 50) -> list[Paper]:
@@ -149,7 +149,7 @@ class Resp:
         year: Optional[int] = None,
         max_results: int = 50,
     ) -> list[Paper]:
-        """Search a named conference SERP-free, routing to the right provider.
+        """Search a named conference, routing to the right provider.
 
         Examples:
             conference("ICML", "diffusion", 2024)
@@ -218,7 +218,7 @@ class Resp:
     # -- citation graph / related ----------------------------------------
 
     def citations(self, paper_id: str, max_results: int = 50) -> list[Paper]:
-        """Papers citing paper_id (S2 ids/DOI/'arXiv:...'). SERP-free."""
+        """Papers citing paper_id (S2 ids/DOI/'arXiv:...')."""
         return self.s2.citations(paper_id, max_results=max_results)
 
     def references(self, paper_id: str, max_results: int = 50) -> list[Paper]:
@@ -226,7 +226,7 @@ class Resp:
 
     def related_papers(self, query_or_id: str, max_results: int = 40) -> list[Paper]:
         """Related papers. Resolves a query to a paper, then uses Connected
-        Papers' graph (reverse-engineered), falling back to S2 recommendations.
+        Papers' graph, falling back to S2 recommendations.
         """
         paper_id = query_or_id
         # If it looks like free text, resolve to a paper id via CP search first.

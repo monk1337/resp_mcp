@@ -1,4 +1,4 @@
-"""SERP-free scholarly search providers.
+"""Scholarly paper search providers.
 
 Each provider returns lists of ``respmcp.providers.base.Paper``.
 """

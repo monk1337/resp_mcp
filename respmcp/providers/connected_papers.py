@@ -1,4 +1,4 @@
-"""Connected Papers provider — reverse-engineered REST API (no Selenium, no key).
+"""Connected Papers provider — REST API client (no Selenium, no key).
 
 The site's front-end (assets/index-*.js) posts to a REST base it reads from
 https://www.connectedpapers.com/rest-addr.json  ->  rest.prod.connectedpapers.com

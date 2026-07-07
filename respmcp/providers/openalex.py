@@ -1,6 +1,6 @@
 """OpenAlex provider — free scholarly graph, no key. Cross-venue search + filters.
 
-Great general replacement for SerpApi ``site:`` queries: filter by host, venue,
+General cross-venue search: filter by host, venue,
 year, open-access, and traverse citations. Add a mailto for the polite pool.
 Docs: https://docs.openalex.org/
 """
@@ -122,7 +122,7 @@ class OpenAlexProvider:
     ) -> list[Paper]:
         """Search within a specific venue (OpenAlex source id) and optional year.
 
-        This is the SERP-free route for conferences without open proceedings
+        This is the route for conferences without open proceedings
         pages we can scrape (e.g. AAAI, ICPR).
         """
         filters = [f"primary_location.source.id:{source_id}"]

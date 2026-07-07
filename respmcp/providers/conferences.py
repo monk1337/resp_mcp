@@ -1,16 +1,16 @@
-"""Conference registry — map a conference name (+ year) to the right SERP-free
+"""Conference registry — map a conference name (+ year) to the right
 provider, so callers can say ``conference('EMNLP', 2023, 'prompting')`` without
 knowing that EMNLP lives in the ACL dump while ICML is a PMLR volume.
 
 Routing methods:
-  - "cvf"      : CVF open-access scrape (CVPR, ICCV, WACV)
-  - "eccv"     : ECVA scrape (ECCV only)
+  - "cvf"      : CVF open-access proceedings (CVPR, ICCV, WACV)
+  - "eccv"     : ECVA proceedings (ECCV only)
   - "pmlr"     : PMLR volume, resolved by conference+year (ICML, AISTATS, UAI, ...)
-  - "acl"      : ACL Anthology dump, filtered by venue slug + year
-  - "ijcai"    : IJCAI proceedings scrape
-  - "neurips"  : NeurIPS proceedings scrape
-  - "openalex" : OpenAlex venue (source id) filter — for venues with no open
-                 proceedings page we can scrape (AAAI, ICPR)
+  - "acl"      : ACL Anthology, filtered by venue slug + year
+  - "ijcai"    : IJCAI proceedings
+  - "neurips"  : NeurIPS proceedings
+  - "dblp"     : DBLP venue+year filter, with an OpenAlex venue fallback — for
+                 venues without an open-proceedings page (AAAI, ICPR, KDD, ...)
 """
 from __future__ import annotations
 
