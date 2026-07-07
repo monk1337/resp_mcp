@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+
+# Test / tooling
+.pytest_cache/
+.tox/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Local cache (ACL anthology dump etc.)
+.cache/
+*.bib
+
+# Env / secrets — never commit these
+.env
+.env.*
+*.local
+.netrc
+.git-credentials
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
